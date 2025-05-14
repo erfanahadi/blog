@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Home | BlogSite{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to BlogSite</h1>
+            <p class="hero-subtitle">Discover stories, insights, and ideas from our community</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'createpost_view' %}" class="btn btn-primary">Write New Post</a>
+            {% else %}
+                <a href="{% url 'signup_view' %}" class="btn btn-primary">Join Now</a>
+            {% endif %}
+        </div>
+    </section>
+
+
+
+    <section class="recent-posts">
+        <div class="section-header">
+            <h2>Latest Posts</h2>
+            <a href="#" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        {% if recent_posts %}
+
+            <div class="post-grid">
+                {% for post in recent_posts %}
+                    <div class="post-card">
+                        <div class="post-image">
+                            {% if post.image %}
+                                <img src="{{ MEDIA_URL }}{{ post.image }}" alt="{{ post.title }}">
+                            {% else %}
+                                <img src="{% static 'images/placeholder.jpg' %}" alt="Post Image">
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'post_detail' post.id %}">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <div class="post-author">
+                                    {% if post.author.image %}
+                                        <img src="{{ MEDIA_URL }}{{ post.author.image }}" alt="{{ post.author.username }}" class="post-author-avatar">
+                                    {% else %}
+                                        <span class="post-author-avatar-placeholder"><i class="fas fa-user"></i></span>
+                                    {% endif %}
+                                    <span>{{ post.author.username }}</span>
+                                </div>
+                                <div class="post-date">{{ post.created_at|date:"M d, Y" }}</div>
+                            </div>
+                            <h3 class="post-title">{{ post.title }}</h3>
+                            <p class="post-excerpt">{{ post.content|truncatewords:20 }}</p>
+                            <div class="post-footer">
+                                <span class="post-comments"><i class="far fa-comment"></i> {{ post.comments.count }}</span>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-posts">
+                <p>No posts available yet. Be the first to create one!</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'createpost_view' %}" class="btn btn-primary mt-3">Create Post</a>
+                {% else %}
+                    <a href="{% url 'signup_view' %}" class="btn btn-primary mt-3">Sign Up to Post</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest posts and updates delivered to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required class="newsletter-input">
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!-- user_posts.html -->
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}My Posts | BlogSite{% endblock %}
+
+{% block content %}
+    <h1>My Posts</h1>
+
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if posts %}
+        <div class="post-list">
+            {% for post in posts %}
+                <div class="post-item">
+                    <div class="post-header">
+                        <h1 class="post-title">{{ post.title }}</h1>
+                        <div class="post-meta">
+                            <span class="post-author">By: {{ post.author.username }}</span> |
+                            <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Post Image -->
+                    <div class="post-image">
+                        {% if post.image %}
+                            <img src="{{ MEDIA_URL }}{{ post.image }}" alt="{{ post.title }}" class="post-image-main">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="Post Image" class="post-image-main">
+                        {% endif %}
+                    </div>
+
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        <p>{{ post.content }}</p>
+                    </div>
+                    <div class="post-actions">
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no posts yet. Create one!</p>
+    {% endif %}
+{% endblock %}
