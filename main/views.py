@@ -11,3 +11,6 @@ def main_view(request):
         'recent_posts': recent_posts,
         'MEDIA_URL': settings.MEDIA_URL,
     })
+
+##pdjge
+
