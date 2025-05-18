@@ -39,7 +39,7 @@ def createpost_view(request):
     else:
         newpost = PostForm()
 
-    return render(request, 'blogposts/post_create.html', {'form': newpost})
+    return render(request, 'blogposts/post_create.html', {'form': newpost, 'MEDIA_URL': settings.MEDIA_URL})
 
 
 @login_required
@@ -158,3 +158,7 @@ def delete_post(request, id):
         return redirect('user_posts')
 
     return render(request, 'blogposts/delete_post.html', {'post': post})
+
+def all_posts_view(request):
+    all_posts = Posts.objects.all().order_by('-created_at')
+    return render(request, 'blogposts/all_posts.html', {'all_posts': all_posts, 'MEDIA_URL': settings.MEDIA_URL})

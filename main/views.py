@@ -12,5 +12,5 @@ def main_view(request):
         'MEDIA_URL': settings.MEDIA_URL,
     })
 
-##pdjge
+
 
