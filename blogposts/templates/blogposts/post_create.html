@@ -20,8 +20,14 @@
             {{ form.content }}
         </div>
         <div class="form-group">
-            <label for="{{ form.image.id_for_label }}">Image:</label>
-            {{ form.image }}
+            <label for="{{ form.image.id_for_label }}" class="form-label">Image:</label> {# Added form-label class for consistency #}
+            <div class="file-upload-wrapper">
+                <label for="{{ form.image.id_for_label }}" class="file-upload-btn">
+                    <i class="fas fa-cloud-upload-alt"></i> Choose File
+                </label>
+                <span class="file-name">No file chosen</span> {# Initial text #}
+                {{ form.image }} {# The actual input type="file" #}
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Create Post</button>
     </form>

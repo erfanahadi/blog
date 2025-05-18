@@ -3,44 +3,301 @@
 
 {% block title %}{{ post.title }} | BlogSite{% endblock %}
 
+{% block extra_css %}
+    <style>
+/* General Styles (from previous steps, keep for consistency) */
+.container {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Post Article Styles */
+.post-article {
+    background-color: #fff;
+    padding: 40px; /* Increased padding */
+    border-radius: 10px; /* More rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+    margin-bottom: 30px; /* Space below the article */
+}
+
+/* Post Header Styles */
+.post-header {
+    margin-bottom: 30px; /* Increased margin */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px; /* Increased padding */
+}
+
+.post-title {
+    font-size: 3em; /* Larger title */
+    color: #222; /* Darker color */
+    margin-bottom: 15px; /* Increased margin */
+    font-family: 'Playfair Display', serif;
+    line-height: 1.2; /* Improved line height */
+}
+
+.post-meta {
+    font-size: 1em; /* Slightly larger meta font */
+    color: #666; /* Slightly darker color */
+}
+
+.author-label {
+    color: blue !important; /* Keep blue as it worked */
+    font-weight: normal; /* Make label normal weight */
+}
+
+.post-author strong { /* Style the author name specifically */
+    font-weight: bold;
+    color: #333;
+}
+
+.post-date {
+    margin-left: 15px; /* Increased margin */
+}
+
+/* Post Image Styles */
+.post-image {
+    margin-bottom: 30px; /* Increased margin */
+    text-align: center;
+}
+
+.post-image-main {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Add shadow to image */
+}
+
+/* Post Content Styles */
+.post-content {
+    font-size: 1.15em; /* Slightly larger content font */
+    line-height: 1.7; /* Improved line height */
+    color: #444; /* Slightly darker color */
+    margin-bottom: 40px; /* Increased margin */
+}
+
+/* Comments Section Styles */
+.comments-section {
+    margin-top: 40px; /* Increased margin */
+    border-top: 1px solid #eee;
+    padding-top: 30px; /* Increased padding */
+}
+
+.comments-title {
+    font-size: 2em; /* Larger comments title */
+    color: #333;
+    margin-bottom: 25px; /* Increased margin */
+    font-family: 'Playfair Display', serif;
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment-item {
+    background-color: #fefefe; /* Lighter background */
+    border: 1px solid #eee;
+    border-radius: 8px; /* More rounded corners */
+    padding: 20px; /* Increased padding */
+    margin-bottom: 20px; /* Increased margin */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.comment-meta {
+    margin-bottom: 10px; /* Space below meta */
+    font-size: 0.95em; /* Slightly larger meta font */
+    color: #666;
+}
+
+.comment-author strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.comment-date {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.comment-content p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 0; /* Remove default paragraph margin */
+}
+
+.comment-actions {
+    margin-top: 15px; /* Increased margin */
+    border-top: 1px solid #eee; /* Separator line */
+    padding-top: 10px; /* Padding above actions */
+}
+
+.comment-actions .btn {
+    padding: 6px 12px; /* Adjusted padding */
+    font-size: 0.9em;
+    margin-right: 8px; /* Increased margin */
+    border-radius: 5px; /* More rounded buttons */
+    text-decoration: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    display: inline-block; /* Ensure buttons are inline-block */
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #212529;
+    border: none; /* Remove border */
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+    opacity: 0.9;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none; /* Remove border */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    opacity: 0.9;
+}
+
+.no-comments {
+    color: #777;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.add-comment-form {
+    margin-top: 30px; /* Increased margin */
+    padding-top: 25px; /* Increased padding */
+    border-top: 1px solid #eee;
+}
+
+.add-comment-title {
+    font-size: 1.6em; /* Slightly larger title */
+    color: #333;
+    margin-bottom: 20px; /* Increased margin */
+    font-family: 'Playfair Display', serif;
+}
+
+.comment-form .form-group textarea { /* Target textarea within form-group */
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* More rounded corners */
+    margin-bottom: 15px; /* Increased margin */
+    box-sizing: border-box;
+    min-height: 100px; /* Minimum height for textarea */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.comment-form .btn-submit {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px; /* Increased padding */
+    border: none;
+    border-radius: 5px; /* More rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form .btn-submit:hover {
+    background-color: #218838;
+}
+
+.login-prompt {
+    color: #777;
+    margin-top: 20px;
+    text-align: center; /* Center the prompt */
+}
+
+.login-prompt a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+    </style>
+{% endblock %}
+
 {% block content %}
-    <section class="post-detail">
+    <article class="post-article">
         <!-- Post Header -->
-        <div class="post-header">
+        <header class="post-header">
             <h1 class="post-title">{{ post.title }}</h1>
             <div class="post-meta">
-                <span class="post-author">By: {{ post.author.username }}</span> |
-                <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                <span class="post-author"><span class="author-label">By:</span> {{ post.author.username }}</span>
+                <span class="post-date">Published on {{ post.created_at|date:"F d, Y" }}</span>
             </div>
-        </div>
+        </header>
 
         <!-- Post Image -->
-        <div class="post-image">
-            {% if post.image %}
+        {% if post.image %}
+            <figure class="post-image">
                 <img src="{{ MEDIA_URL }}{{ post.image }}" alt="{{ post.title }}" class="post-image-main">
-            {% else %}
-                <img src="{% static 'images/placeholder.jpg' %}" alt="Post Image" class="post-image-main">
-            {% endif %}
-        </div>
+            </figure>
+        {% endif %}
 
         <!-- Post Content -->
-        <div class="post-content">
-            <p>{{ post.content }}</p>
-        </div>
+        <section class="post-content">
+            {{ post.content|safe }} {# Use safe filter if content is HTML #}
+        </section>
 
         <!-- Comments Section -->
-        <div class="comments-section">
+        <section class="comments-section">
             <h3 class="comments-title">Comments ({{ comments.count }})</h3>
 
             {% if comments %}
                 <ul class="comment-list">
                     {% for comment in comments %}
                         <li class="comment-item">
-                            <div class="comment-author">
-                                <strong>{{ comment.author.username }}</strong>
+                            <div class="comment-meta">
+                                <span class="comment-author"><strong>{{ comment.author.username }}</strong></span>
                                 <span class="comment-date">{{ comment.created_at|date:"M d, Y" }}</span>
                             </div>
-                            <p class="comment-content">{{ comment.content }}</p>
+                            <div class="comment-content">
+                                <p>{{ comment.content }}</p>
+                            </div>
 
                             {% if comment.author == user %}
                                 <div class="comment-actions">
@@ -61,13 +318,15 @@
                     <h4 class="add-comment-title">Add a Comment</h4>
                     <form method="POST" action="{% url 'post_detail' post.id %}" class="comment-form">
                         {% csrf_token %}
-                        {{ comment_form.as_p }}
+                        <div class="form-group"> {# Wrap form field in a div for styling #}
+                            {{ comment_form.content }} {# Assuming comment form has a 'content' field #}
+                        </div>
                         <button type="submit" class="btn btn-submit">Post Comment</button>
                     </form>
                 </div>
             {% else %}
-                <p class="login-prompt">You must be logged in to comment. <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Sign up</a>.</p>
+                <p class="login-prompt">You must be logged in to comment. <a href="{% url 'login_view' %}">Login</a> or <a href="{% url 'signup_view' %}">Sign up</a>.</p>
             {% endif %}
-        </div>
-    </section>
+        </section>
+    </article>
 {% endblock %}
