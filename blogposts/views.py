@@ -4,7 +4,7 @@ from django.conf import settings
 from .forms import PostForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Posts
-from .forms import CommentForm  # We'll create this form shortly
+from .forms import CommentForm
 from user.models import Bloguser
 from django.contrib.auth.decorators import login_required
 from .models import Comment

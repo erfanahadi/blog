@@ -8,11 +8,10 @@ class Posts(models.Model):
     author = models.ForeignKey(Bloguser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.CharField(max_length=255, blank=True, null=True)
+    image = models.CharField(max_length=500, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'posts'
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -21,10 +20,6 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        managed = False
-        db_table = 'comments'
 
     def __str__(self):
         return f"Comment by {self.author.username} on {self.post.title}"
